@@ -14,55 +14,53 @@ token_client = 'AQUI'
 #Inserir o nome do/dos canal/canais da twitch
 canal = ['AQUI']
 
-
+#Leitura da base de dados
 df = pd.read_csv('ham_spam_xqcow_and_sodapoppin.csv', sep='\t', header=None, names=['label', 'message'])
-
-# Split the label and message correctly
 df[['label', 'message']] = df['label'].str.split(n=1, expand=True)
 df['message'] = df['message'].astype(str).str.strip('"')
-
-# Encode labels
 df['label_encoded'] = df['label'].map({'ham': 0, 'spam': 1})
 
-# Split the dataset into training and testing sets
+#Definir as variáveis
 X = df['message']
 y = df['label_encoded']
+
+#Divisão da base de dados
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
 
-# Vectorize text data
+#Vetorização das variáveis X
 vectorizer = CountVectorizer()
 X_train_counts = vectorizer.fit_transform(X_train)
 X_test_counts = vectorizer.transform(X_test)
 
-# Reduce dimensionality using TruncatedSVD
-svd = TruncatedSVD(n_components=100)  # Adjust the number of components as needed
+#Reduzir dimensão usando TruncatedSVD
+svd = TruncatedSVD(n_components=100)
 X_train_reduced = svd.fit_transform(X_train_counts)
 X_test_reduced = svd.transform(X_test_counts)
 
-# Initialize the Linear Regression model
+#Inicializar o classificador Linear Regression
 clf = LinearRegression()
 
-print('meio')
+#print de teste para sabermos onde estamos
+print('Classificador criado')
 
-# Train the model with reduced data
+#Treinar o modelo com os dados de treinamento
 clf.fit(X_train_counts, y_train)
 
-print ("treino final")
+#print de teste para sabermos onde estamos
+print ("Dados treinados")
 
-# Predict the test set results
+#Previsão dos Y
 y_pred = clf.predict(X_test_counts)
 
-# Calculate Mean Squared Error
+#Precisão do método
 mse = mean_squared_error(y_test, y_pred)
 print(f"Mean Squared Error: {mse:.4f}")
 
-# Apply a threshold to convert continuous predictions to binary class labels
+#Definir se os dados vão ser 1 ou 0
 y_pred_binary = [1 if x >= 0.5 else 0 for x in y_pred]
 
-# Print classification report
+#Mostrar tabela com estatísticas
 print(classification_report(y_test, y_pred_binary, target_names=['Ham', 'Spam']))
-
-# Plot confusion matrix
 cm = confusion_matrix(y_test, y_pred_binary)
 sns.heatmap(cm, annot=True, fmt='d', cmap='Blues', xticklabels=['Ham', 'Spam'], yticklabels=['Ham', 'Spam'])
 plt.ylabel('True Label')
@@ -70,6 +68,7 @@ plt.xlabel('Predicted Label')
 plt.title('Confusion Matrix')
 plt.show()
 
+#Comandos para o Bot da Twitch
 class Bot(commands.Bot):
 
     def __init__(self):
@@ -104,7 +103,8 @@ class Bot(commands.Bot):
                 await message.channel.send('Não foi possível banir o usuário. Verifique as permissões do bot.')
 
         await self.handle_commands(message)
-        
+
+#Tenta correr o código para o Bot da Twitch
 try:
     bot = Bot()
     bot.run()
