@@ -104,6 +104,14 @@ class Bot(commands.Bot):
                 await message.channel.send('Não foi possível banir o usuário. Verifique as permissões do bot.')
 
         await self.handle_commands(message)
-
-bot = Bot()
-bot.run()
+        
+try:
+    bot = Bot()
+    bot.run()
+except Exception as e:
+    print(f"""\nO programa não dá para usar com a conta da twitch.
+Erros possíveis:
+    - Não querer fazer a interligação com a Twitch
+    - Token mal inserido
+    - Canal inexistente
+Erro: {e}""")
