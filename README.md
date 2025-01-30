@@ -5,9 +5,9 @@
  Se pretender usar o programa o canal da Twitch, por favor insira o Token do cliente no começo do código para o programa ter acesso ao seu chat. 
  
  Para ter um token para este programa basta vir a este site https://twitchtokengenerator.com, logar a conta da sua Twitch e ativar os seguintes Scopes:
-        -chat:read
-        -chat:edit
-        -channel:moderate
+   -chat:read    
+   -chat:edit  
+   -channel:moderate
     
  Após a ativação destes Scopes, é só gerar um novo Token, copiar o "ACCESS TOKEN" gerado e meter no início do código.
 
