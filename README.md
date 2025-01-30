@@ -19,6 +19,7 @@
 Agora já está pronto para usar este programa para a deteção e banimento de usuários.
 
 Lembrando que só necessita de escolher um dos ficheiros que são:
-    -Naives_Bayes.py
-    -Linear_Regression.py
-    -Neural_Network.py
+
+   -Naives_Bayes.py
+   -Linear_Regression.py
+   -Neural_Network.py
