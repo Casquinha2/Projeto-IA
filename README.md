@@ -2,6 +2,8 @@
  Detetor de spam para banimentos na plataforma Twitch (projeto para a cadeira de Inteligência Artificial)
 
 # Instruções de uso deste programa
+ Este código dá para ser usado sem a interligação com a Twitch, mas nesse caso o único output esperado é só as estatisticas de cada método de machine learning.
+ 
  Se pretender usar o programa o canal da Twitch, por favor insira o Token do cliente no começo do código para o programa ter acesso ao seu chat. 
  
  Para ter um token para este programa basta vir a este site https://twitchtokengenerator.com, logar a conta da sua Twitch e ativar os seguintes Scopes:
