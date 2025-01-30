@@ -73,7 +73,7 @@ class Bot(commands.Bot):
         #tratamento da mensagem
         message_reduced = vectorizer.transform(message.content)
 
-        #Predição da mensagem
+        #Previção da mensagem
         y_pred = clf.predict(message_reduced)
         
         #Binariza a predição para classificar como spam ou não spam
