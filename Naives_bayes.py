@@ -71,7 +71,7 @@ class Bot(commands.Bot):
             return
         
         #tratamento da mensagem
-        message_reduced = vectorizer.transform(message.content)
+        message_reduced = vectorizer.transform([message.content])
 
         #Previção da mensagem
         y_pred = clf.predict(message_reduced)
@@ -87,6 +87,8 @@ class Bot(commands.Bot):
                 await message.channel.send(f'O usuário {message.author.name} foi banido por spam.')
             except Exception as e:
                 await message.channel.send('Não foi possível banir o usuário. Verifique as permissões do bot.')
+        else:
+            print(f'A mensagem "{message.content}" foi classificada como não spam.')
 
         await self.handle_commands(message)
 

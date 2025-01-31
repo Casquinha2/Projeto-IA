@@ -44,13 +44,13 @@ clf = LinearRegression()
 print('Classificador criado')
 
 #Treinar o modelo com os dados de treinamento
-clf.fit(X_train_counts, y_train)
+clf.fit(X_train_reduced, y_train)
 
 #print de teste para sabermos onde estamos
 print ("Dados treinados")
 
 #Previsão dos Y
-y_pred = clf.predict(X_test_counts)
+y_pred = clf.predict(X_test_reduced)
 
 #Precisão do método
 mse = mean_squared_error(y_test, y_pred)
@@ -84,7 +84,7 @@ class Bot(commands.Bot):
             return
         
         #Tratamento da mensagem
-        message_counts = vectorizer.transform(message.content)
+        message_counts = vectorizer.transform([message.content])
         message_reduced = svd.transform(message_counts)
 
         #Previção da mensagem
@@ -101,6 +101,8 @@ class Bot(commands.Bot):
                 await message.channel.send(f'O usuário {message.author.name} foi banido por spam.')
             except Exception as e:
                 await message.channel.send('Não foi possível banir o usuário. Verifique as permissões do bot.')
+        else:
+            print(f'A mensagem "{message.content}" foi classificada como não spam.')
 
         await self.handle_commands(message)
 
